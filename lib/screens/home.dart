@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:help_app/bloc/get_user_bloc.dart';
 import 'package:help_app/bloc/get_user_state.dart';
+import 'package:help_app/screens/components/card_components.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -10,9 +11,16 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   @override
+  @override
   void initState() {
-    context.read<GetUserBloc>().add(GetData());
     super.initState();
+    WidgetsBinding.instance?.addPostFrameCallback((_) {
+      fetchData(context);
+    });
+  }
+
+  void fetchData(BuildContext context) {
+    BlocProvider.of<GetUserBloc>(context).add(GetData());
   }
 
   @override
@@ -55,12 +63,10 @@ class _HomeState extends State<Home> {
                     child: ListView.builder(
                       itemBuilder: (context, index) {
                         return Container(
-                          child: Column(
-                            children: [
-                              Text(
-                                state.data[index]['bloodGroup'].toString(),
-                              )
-                            ],
+                          child: CardComponent(
+                            state.data[index]['bloodGroup'],
+                            name: state.data[index]['name'],
+                            mobile: state.data[index]['mobile'],
                           ),
                         );
                       },

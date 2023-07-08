@@ -14,34 +14,33 @@ class RegisteredBloc extends Bloc<AddUserEvent, RegisteredState> {
       (event, emit) async {
         emit(RegisteredLoading());
         print(userCollection);
-        var listData = userCollection.doc('blood').get();
+        var listData = userCollection.get();
         print(listData);
-        if (listData == null) {
-          try {
-            await userCollection.doc("blood").set(event.user.toJson());
+        try {
+          await userCollection.add(event.user.toJson());
 
-            emit(RegistredSuccess());
-          } catch (e) {
-            emit(
-              RegistredError(
-                e.toString(),
-              ),
-            );
-          }
-        } else {
-          try {
-            await userCollection.doc("blood").update(event.user.toJson());
-            var x = userCollection.get();
-            // print("fgdjfdghfghfkdgf$x");
-            emit(RegistredSuccess());
-          } catch (e) {
-            emit(
-              RegistredError(
-                e.toString(),
-              ),
-            );
-          }
+          emit(RegistredSuccess());
+        } catch (e) {
+          emit(
+            RegistredError(
+              e.toString(),
+            ),
+          );
         }
+        // } else {
+        //   try {
+        //     await userCollection.doc("blood").update(event.user.toJson());
+        //     var x = userCollection.get();
+        //     // print("fgdjfdghfghfkdgf$x");
+        //     emit(RegistredSuccess());
+        //   } catch (e) {
+        //     emit(
+        //       RegistredError(
+        //         e.toString(),
+        //       ),
+        //     );
+        //   }
+        // }
       },
     );
   }

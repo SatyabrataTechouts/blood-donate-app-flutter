@@ -23,8 +23,8 @@ class GetUserBloc extends Bloc<GetData, GetUserState> {
           position.latitude,
           position.longitude,
         );
-        print("location:${pos.state}");
-        fetchDataFromFirestore().then(
+        // print("location:${pos.state}");
+        await fetchDataFromFirestore().then(
           (QuerySnapshot<Map<String, dynamic>> snapshot) {
             // Handle the query snapshot here.
             if (snapshot.docs.isNotEmpty) {
@@ -32,16 +32,24 @@ class GetUserBloc extends Bloc<GetData, GetUserState> {
               for (var document in snapshot.docs) {
                 // Access document data using document.data() as a Map<String, dynamic>.
                 print(document.data());
-                data.add(document.data());
+                // print(pos.["state"]);
+                // mappedData.add(document.data());
+                // var pin = document.data();
+                if (document.data()['pin'] == '500032') {
+                  data.add(document.data());
+                }
               }
             } else {
               print("No documents found.");
             }
           },
         );
-        for (int i = 0; i < data.length;i++){
-          if(data[i].state==pos.state)
-        } emit(GetUserLoaded(data));
+        // for (int i = 0; i < mappedData.length; i++) {
+        //   print(" mapped data ${mappedData[i]}");
+        //   // if (data[i].state == pos.state) {}
+        // }
+        print(data);
+        emit(GetUserLoaded(data));
       },
     );
   }

@@ -125,7 +125,7 @@ class _RegisterBloodDonateState extends State<RegisterBloodDonate> {
                           final bool dist = RegExp('^[A-Za-z\s]+\$').hasMatch(
                             value.toString(),
                           );
-                          if (!dist) {
+                          if (dist) {
                             return "Enter valid mobile Number";
                           } else if (value == '') {
                             return "Please Enter you mobile Number";
