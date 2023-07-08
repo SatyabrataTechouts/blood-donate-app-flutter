@@ -35,7 +35,7 @@ class GetUserBloc extends Bloc<GetData, GetUserState> {
                 // print(pos.["state"]);
                 // mappedData.add(document.data());
                 // var pin = document.data();
-                if (document.data()['pin'] == '500032') {
+                if (document.data()['pin'] == pos[0].postalCode) {
                   data.add(document.data());
                 }
               }

@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
 
+const style = TextStyle(
+  color: Colors.black,
+  fontSize: 13,
+  fontWeight: FontWeight.w500,
+);
+
 class CardComponent extends StatelessWidget {
   final String? name;
   final String? mobile;
@@ -15,21 +21,39 @@ class CardComponent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(18.0),
       child: Container(
-        color: Colors.blue,
-        padding: EdgeInsets.all(12),
+        decoration: const BoxDecoration(
+          color: Color(0xFFffffff),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.blueGrey,
+              blurRadius: 6.0, // soften the shadow
+              spreadRadius: 1.0, //extend the shadow
+              offset: Offset(
+                2.0, // Move to right 2  horizontally
+                2.0, // Move to bottom 2 Vertically
+              ),
+            )
+          ],
+        ),
+        padding: const EdgeInsets.all(
+          12,
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               name.toString(),
+              style: style,
             ),
             Text(
               blood.toString(),
+              style: style,
             ),
             Text(
               mobile.toString(),
+              style: style,
             ),
           ],
         ),
