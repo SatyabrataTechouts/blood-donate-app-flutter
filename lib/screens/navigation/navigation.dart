@@ -21,7 +21,9 @@ class _NavigationState extends State<Navigation> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        backgroundColor: _selectedIndex == 0 ? Colors.red : Colors.amber,
+      ),
       body: _pages.elementAt(_selectedIndex),
       endDrawer: Drawer(
         child: LayoutBuilder(builder: (context, constraints) {

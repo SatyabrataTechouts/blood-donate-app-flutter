@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 const style = TextStyle(
   color: Colors.black,
@@ -37,24 +38,38 @@ class CardComponent extends StatelessWidget {
             )
           ],
         ),
-        padding: const EdgeInsets.all(
-          12,
+        padding: const EdgeInsets.symmetric(
+          vertical: 12,
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Text(
-              name.toString(),
-              style: style,
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  name.toString(),
+                  style: style,
+                ),
+                Text(
+                  blood.toString(),
+                  style: style,
+                ),
+                Text(
+                  mobile.toString(),
+                  style: style,
+                ),
+              ],
             ),
-            Text(
-              blood.toString(),
-              style: style,
-            ),
-            Text(
-              mobile.toString(),
-              style: style,
-            ),
+            IconButton(
+              // ignore: deprecated_member_use
+              onPressed: () => launch(
+                "tel://${mobile}",
+              ),
+              icon: Icon(
+                Icons.call,
+              ),
+            )
           ],
         ),
       ),
