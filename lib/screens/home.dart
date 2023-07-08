@@ -61,8 +61,10 @@ class _HomeState extends State<Home> {
                   child: SizedBox(
                     height: height,
                     child: state.data.isEmpty
-                        ? Center(
-                            child: Text("No Donare is available for this area"),
+                        ? const Center(
+                            child: Text(
+                              "No Donare is available for this area",
+                            ),
                           )
                         : ListView.builder(
                             itemBuilder: (context, index) {
