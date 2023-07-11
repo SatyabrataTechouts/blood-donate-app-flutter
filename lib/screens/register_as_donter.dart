@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:help_app/components/custum_button.dart';
+import 'package:help_app/screens/food_reciver.dart';
 import 'package:help_app/screens/register_blood_donate.dart';
 
 class Register extends StatelessWidget {
@@ -32,13 +33,20 @@ class Register extends StatelessWidget {
                   },
                 ),
                 CustumButton(
-                  buttonName: "Food donate org",
+                  buttonName: "Food Receiver org",
                   height: 40,
                   width: 160,
                   color: Colors.orange,
                   radius: 12,
                   textColor: Colors.white,
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => FoodReceiver(),
+                      ),
+                    );
+                  },
                 ),
               ],
             ),

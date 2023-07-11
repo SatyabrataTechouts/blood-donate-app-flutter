@@ -33,57 +33,62 @@ class _HomeState extends State<Home> {
           ),
         );
       } else if (state is GetUserLoaded) {
-        return LayoutBuilder(builder: (context, constraints) {
-          double height = constraints.maxHeight;
-          return Scaffold(
-            body: Column(
-              children: [
-                // Container(
-                //   alignment: Alignment.center,
-                //   child: Image.network(
-                //     "https://cdn.britannica.com/97/1597-004-05816F4E/Flag-India.jpg",
-                //     width: double.infinity,
-                //   ),
-                // ),
-                // Container(
-                //   margin: const EdgeInsets.symmetric(
-                //     horizontal: 5,
-                //   ),
-                //   child: const Text(
-                //     "सत्यमेव जयते",
-                //     style: TextStyle(
-                //       fontSize: 17,
-                //       fontWeight: FontWeight.w600,
-                //     ),
-                //   ),
-                // ),
-                SingleChildScrollView(
-                  child: SizedBox(
-                    height: height,
-                    child: state.data.isEmpty
-                        ? const Center(
-                            child: Text(
-                              "No Donare is available for this area",
-                            ),
-                          )
-                        : ListView.builder(
-                            itemBuilder: (context, index) {
-                              return Container(
-                                child: CardComponent(
+        return LayoutBuilder(
+          builder: (context, constraints) {
+            double height = constraints.maxHeight;
+            return Scaffold(
+              body: Column(
+                children: [
+                  // Container(
+                  //   alignment: Alignment.center,
+                  //   child: Image.network(
+                  //     "https://cdn.britannica.com/97/1597-004-05816F4E/Flag-India.jpg",
+                  //     width: double.infinity,
+                  //   ),
+                  // ),
+                  // Container(
+                  //   margin: const EdgeInsets.symmetric(
+                  //     horizontal: 5,
+                  //   ),
+                  //   child: const Text(
+                  //     "सत्यमेव जयते",
+                  //     style: TextStyle(
+                  //       fontSize: 17,
+                  //       fontWeight: FontWeight.w600,
+                  //     ),
+                  //   ),
+                  // ),
+                  SingleChildScrollView(
+                    child: SizedBox(
+                      height: height,
+                      child: state.data.isEmpty
+                          ? const Center(
+                              child: Text(
+                                "No Donar is available for this area",
+                                style: TextStyle(
+                                  fontSize: 17,
+                                  color: Colors.grey,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                            )
+                          : ListView.builder(
+                              itemBuilder: (context, index) {
+                                return CardComponent(
                                   state.data[index]['bloodGroup'],
                                   name: state.data[index]['name'],
                                   mobile: state.data[index]['mobile'],
-                                ),
-                              );
-                            },
-                            itemCount: state.data.length,
-                          ),
-                  ),
-                )
-              ],
-            ),
-          );
-        });
+                                );
+                              },
+                              itemCount: state.data.length,
+                            ),
+                    ),
+                  )
+                ],
+              ),
+            );
+          },
+        );
       } else {
         return const Scaffold(
           body: Center(

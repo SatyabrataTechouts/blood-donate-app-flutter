@@ -66,7 +66,7 @@ class CardComponent extends StatelessWidget {
               onPressed: () => launch(
                 "tel://${mobile}",
               ),
-              icon: Icon(
+              icon: const Icon(
                 Icons.call,
               ),
             )

@@ -4,11 +4,15 @@ class Input extends StatefulWidget {
   final controller;
   final String? Function(String?)? validator;
   final String placeholder;
-  const Input({
+  int? maxLength;
+  TextInputType? type;
+  Input({
     super.key,
     required this.controller,
     this.validator,
     required this.placeholder,
+    this.maxLength,
+    this.type,
   });
 
   @override
@@ -29,6 +33,8 @@ class _InputState extends State<Input> {
         validator: widget.validator,
         // textAlignVertical: TextAlignVertical.center,
         controller: widget.controller,
+        maxLength: widget.maxLength,
+        keyboardType: widget.type,
         decoration: InputDecoration(
           border: OutlineInputBorder(),
           errorText: errorText,
