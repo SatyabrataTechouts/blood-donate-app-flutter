@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Input extends StatefulWidget {
-  final controller;
+  final TextEditingController controller;
   final String? Function(String?)? validator;
   final String placeholder;
   int? maxLength;

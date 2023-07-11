@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:help_app/RegistredBloc/registered_bloc.dart';
 import 'package:help_app/bloc/get_user_bloc.dart';
+import 'package:help_app/bloc/org_bloc.dart';
 import 'package:help_app/firebase_option.dart';
 import 'package:help_app/screens/navigation/navigation.dart';
 
@@ -28,6 +29,9 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => GetUserBloc(),
         ),
+        BlocProvider(
+          create: (context) => OrgBloc(),
+        )
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
