@@ -22,7 +22,9 @@ class _NavigationState extends State<Navigation> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: _selectedIndex == 0 ? Colors.red : Colors.amber,
+        iconTheme: IconThemeData(color: Colors.white),
+        backgroundColor: Colors.blue,
+        automaticallyImplyLeading: false,
       ),
       body: _pages.elementAt(_selectedIndex),
       endDrawer: Drawer(
@@ -166,10 +168,10 @@ class _NavigationState extends State<Navigation> {
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            backgroundColor: Colors.deepPurple,
+            backgroundColor: Colors.blue,
             icon: Icon(
               Icons.bloodtype,
-              color: Colors.red,
+              color: Colors.white,
               size: 30,
             ),
             label: "",
@@ -177,7 +179,7 @@ class _NavigationState extends State<Navigation> {
           BottomNavigationBarItem(
             icon: Icon(
               Icons.food_bank,
-              color: Colors.orange,
+              color: Colors.white,
               size: 30,
             ),
             label: '',
@@ -185,7 +187,7 @@ class _NavigationState extends State<Navigation> {
           BottomNavigationBarItem(
             icon: Icon(
               Icons.app_registration_rounded,
-              color: Colors.amberAccent,
+              color: Colors.white,
               size: 30,
             ),
             label: '',

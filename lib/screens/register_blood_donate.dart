@@ -5,6 +5,7 @@ import 'package:help_app/RegistredBloc/registered_event.dart';
 import 'package:help_app/components/custum_button.dart';
 import 'package:help_app/components/custum_input.dart';
 import 'package:help_app/model/registred_model.dart';
+import 'package:help_app/screens/navigation/navigation.dart';
 
 List<String> list = [
   "A+",
@@ -19,18 +20,18 @@ class RegisterBloodDonate extends StatefulWidget {
   State<RegisterBloodDonate> createState() => _RegisterBloodDonateState();
 }
 
+var name = TextEditingController();
+var blood = TextEditingController();
+var district = TextEditingController();
+var state = TextEditingController();
+var pin = TextEditingController();
+var mobile = TextEditingController();
+
 class _RegisterBloodDonateState extends State<RegisterBloodDonate> {
   String dropdownValue = list.first;
   bool isError = true;
   @override
   Widget build(BuildContext context) {
-    var name = TextEditingController();
-    var blood = TextEditingController();
-    var district = TextEditingController();
-    var state = TextEditingController();
-    var pin = TextEditingController();
-    var mobile = TextEditingController();
-
     var _valid;
     return Scaffold(
       appBar: AppBar(),
@@ -121,15 +122,18 @@ class _RegisterBloodDonateState extends State<RegisterBloodDonate> {
                       alignment: Alignment.center,
                       child: Input(
                         controller: mobile,
+                        type: TextInputType.number,
+                        maxLength: 10,
                         validator: (value) {
-                          final bool dist = RegExp('^[A-Za-z\s]+\$').hasMatch(
+                          final bool dist = RegExp('^[6-9]\d{9}').hasMatch(
                             value.toString(),
                           );
-                          if (dist) {
+                          if (value!.length < 10 || value.isEmpty) {
                             return "Enter valid mobile Number";
-                          } else if (value == '') {
-                            return "Please Enter you mobile Number";
                           }
+                          // } else if (!dist) {
+                          //   return "Enter valid number";
+                          // }
                           return null;
                         },
                         placeholder: "Enter your Mobile number",
@@ -179,6 +183,8 @@ class _RegisterBloodDonateState extends State<RegisterBloodDonate> {
                       alignment: Alignment.center,
                       child: Input(
                         controller: pin,
+                        type: TextInputType.number,
+                        maxLength: 6,
                         validator: (value) {
                           if (value!.length < 6) {
                             return "Enter valid Pincode";
@@ -198,19 +204,30 @@ class _RegisterBloodDonateState extends State<RegisterBloodDonate> {
                       radius: 12,
                       textColor: Colors.white,
                       onTap: () {
-                        RegistredUser user = RegistredUser(
-                          name: name.text,
-                          bloodGroup: dropdownValue,
-                          state: state.text,
-                          pinCode: pin.text,
-                          mobileNumber: mobile.text,
-                        );
+                        if (validateForm()) {
+                          RegistredUser user = RegistredUser(
+                            name: name.text,
+                            bloodGroup: dropdownValue,
+                            state: state.text,
+                            pinCode: pin.text,
+                            mobileNumber: mobile.text,
+                          );
 
-                        context.read<RegisteredBloc>().add(
-                              AddUserEvent(
-                                user,
-                              ),
-                            );
+                          context.read<RegisteredBloc>().add(
+                                AddUserEvent(
+                                  user,
+                                ),
+                              );
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => Navigation(),
+                            ),
+                          );
+                        } else {
+                          showPopup(
+                              context, 'Please fill all the fields correctly.');
+                        }
                       },
                     )
                   ],
@@ -222,4 +239,36 @@ class _RegisterBloodDonateState extends State<RegisterBloodDonate> {
       ),
     );
   }
+}
+
+bool validateForm() {
+  // Perform validation for each form field
+  final bool nameValid = RegExp(r"[A-Za-z]").hasMatch(name.text);
+  final bool mobileValid = RegExp(r'^[6-9]\d{9}$').hasMatch(mobile.text);
+  final bool districtValid = RegExp(r'^[A-Za-z\s]+$').hasMatch(district.text);
+  final bool stateValid =
+      RegExp(r'^[A-Za-z\s]+(?:\s[A-Za-z\s]+)?$').hasMatch(state.text);
+  final bool pinValid = pin.text.length == 6;
+
+  return nameValid && mobileValid && districtValid && stateValid && pinValid;
+}
+
+void showPopup(BuildContext context, String message) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: const Text('Error'),
+        content: Text(message),
+        actions: [
+          TextButton(
+            child: const Text('OK'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      );
+    },
+  );
 }

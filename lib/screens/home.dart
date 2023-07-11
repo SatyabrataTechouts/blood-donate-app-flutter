@@ -37,27 +37,9 @@ class _HomeState extends State<Home> {
           builder: (context, constraints) {
             double height = constraints.maxHeight;
             return Scaffold(
+              backgroundColor: Color(0xffff),
               body: Column(
                 children: [
-                  // Container(
-                  //   alignment: Alignment.center,
-                  //   child: Image.network(
-                  //     "https://cdn.britannica.com/97/1597-004-05816F4E/Flag-India.jpg",
-                  //     width: double.infinity,
-                  //   ),
-                  // ),
-                  // Container(
-                  //   margin: const EdgeInsets.symmetric(
-                  //     horizontal: 5,
-                  //   ),
-                  //   child: const Text(
-                  //     "सत्यमेव जयते",
-                  //     style: TextStyle(
-                  //       fontSize: 17,
-                  //       fontWeight: FontWeight.w600,
-                  //     ),
-                  //   ),
-                  // ),
                   SingleChildScrollView(
                     child: SizedBox(
                       height: height,

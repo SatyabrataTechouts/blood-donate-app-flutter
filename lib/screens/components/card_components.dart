@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 const style = TextStyle(
-  color: Colors.black,
-  fontSize: 13,
+  color: Colors.white,
+  fontSize: 17,
   fontWeight: FontWeight.w500,
 );
 
@@ -25,12 +25,12 @@ class CardComponent extends StatelessWidget {
       padding: const EdgeInsets.all(18.0),
       child: Container(
         decoration: const BoxDecoration(
-          color: Color(0xFFffffff),
+          color: Colors.red,
           boxShadow: [
             BoxShadow(
-              color: Colors.blueGrey,
-              blurRadius: 6.0, // soften the shadow
-              spreadRadius: 1.0, //extend the shadow
+              // color: Colors.blueGrey,
+              blurRadius: 4, // soften the shadow
+              spreadRadius: 0.32, //extend the shadow
               offset: Offset(
                 2.0, // Move to right 2  horizontally
                 2.0, // Move to bottom 2 Vertically
@@ -41,36 +41,41 @@ class CardComponent extends StatelessWidget {
         padding: const EdgeInsets.symmetric(
           vertical: 12,
         ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  name.toString(),
-                  style: style,
-                ),
-                Text(
-                  blood.toString(),
-                  style: style,
-                ),
-                Text(
-                  mobile.toString(),
-                  style: style,
-                ),
-              ],
-            ),
-            IconButton(
-              // ignore: deprecated_member_use
-              onPressed: () => launch(
-                "tel://${mobile}",
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Name: ${name.toString()}',
+                    style: style,
+                  ),
+                  Text(
+                    "Blood Group: ${blood.toString()}",
+                    style: style,
+                  ),
+                  Text(
+                    "Mobile Number: ${mobile.toString()}",
+                    style: style,
+                  ),
+                ],
               ),
-              icon: const Icon(
-                Icons.call,
-              ),
-            )
-          ],
+              IconButton(
+                // ignore: deprecated_member_use
+                onPressed: () => launch(
+                  "tel://${mobile}",
+                ),
+                icon: const Icon(
+                  Icons.call,
+                  color: Colors.white,
+                  size: 25,
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );

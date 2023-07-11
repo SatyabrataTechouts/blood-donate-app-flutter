@@ -12,36 +12,62 @@ class RegisteredBloc extends Bloc<AddUserEvent, RegisteredState> {
   RegisteredBloc() : super(RegisteredInitial()) {
     on<AddUserEvent>(
       (event, emit) async {
+        bool mobileNumberMatched = false;
         emit(RegisteredLoading());
         print(userCollection);
         var listData = userCollection.get();
-        print(listData);
-        try {
-          await userCollection.add(event.user.toJson());
+        print("userLi9ist===$listData");
+        await fetchDataFromFirestore().then(
+          (QuerySnapshot<Map<String, dynamic>> snapshot) {
+            // Handle the query snapshot here.
+            if (snapshot.docs.isNotEmpty) {
+              // Access the documents in the snapshot.
+              for (var document in snapshot.docs) {
+                // Access document data using document.data() as a Map<String, dynamic>.
+                print(document.data());
+                // print(pos.["state"]);
+                // mappedData.add(document.data());
+                // var pin = document.data();
+                var documentData = document.data();
+                if (documentData['mobile'] == event.user.mobileNumber) {
+                  mobileNumberMatched = true;
+                  break;
+                }
+              }
+            } else {
+              print("No documents found.");
+            }
+          },
+        );
+        if (!mobileNumberMatched) {
+          try {
+            await userCollection.add(
+              event.user.toJson(),
+            );
 
-          emit(RegistredSuccess());
-        } catch (e) {
-          emit(
-            RegistredError(
-              e.toString(),
-            ),
-          );
+            emit(RegistredSuccess());
+          } catch (e) {
+            emit(
+              RegistredError(
+                e.toString(),
+              ),
+            );
+          }
+        } else {
+          print("user Available");
         }
-        // } else {
-        //   try {
-        //     await userCollection.doc("blood").update(event.user.toJson());
-        //     var x = userCollection.get();
-        //     // print("fgdjfdghfghfkdgf$x");
-        //     emit(RegistredSuccess());
-        //   } catch (e) {
-        //     emit(
-        //       RegistredError(
-        //         e.toString(),
-        //       ),
-        //     );
-        //   }
-        // }
       },
     );
   }
+}
+
+Future<QuerySnapshot<Map<String, dynamic>>> fetchDataFromFirestore() {
+  // Assuming you have initialized Firebase and obtained a Firestore instance.
+  final firestore = FirebaseFirestore.instance;
+
+  // Query the 'collectionName' collection.
+  final collectionRef = firestore.collection('User');
+
+  // Perform the query and return the future.
+  return collectionRef.get();
 }
