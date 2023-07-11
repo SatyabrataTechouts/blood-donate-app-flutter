@@ -45,7 +45,9 @@ class RegisteredBloc extends Bloc<AddUserEvent, RegisteredState> {
               event.user.toJson(),
             );
 
-            emit(RegistredSuccess());
+            emit(
+              RegistredSuccess(),
+            );
           } catch (e) {
             emit(
               RegistredError(
@@ -54,7 +56,9 @@ class RegisteredBloc extends Bloc<AddUserEvent, RegisteredState> {
             );
           }
         } else {
-          print("user Available");
+          print(
+            "user Available",
+          );
         }
       },
     );

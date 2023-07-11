@@ -17,5 +17,6 @@ class RegistredError extends RegisteredState {
   final String errorMassage;
 
   const RegistredError(this.errorMassage);
+  @override
   List<Object> get props => [errorMassage];
 }
