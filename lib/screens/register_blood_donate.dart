@@ -76,7 +76,7 @@ class _RegisterBloodDonateState extends State<RegisterBloodDonate> {
                     ),
                     Container(
                         width: 300,
-                        margin: EdgeInsets.only(
+                        margin: const EdgeInsets.only(
                           bottom: 23,
                         ),
                         decoration: BoxDecoration(
@@ -161,14 +161,16 @@ class _RegisterBloodDonateState extends State<RegisterBloodDonate> {
 
                         ///Dropdown box decoration to style your dropdown selector [OPTIONAL PARAMETER] (USE with disabledDropdownDecoration)
                         dropdownDecoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(10)),
                             color: Colors.white,
                             border: Border.all(
                                 color: Colors.grey.shade300, width: 1)),
 
                         ///Disabled Dropdown box decoration to style your dropdown selector [OPTIONAL PARAMETER]  (USE with disabled dropdownDecoration)
                         disabledDropdownDecoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(10)),
                             color: Colors.grey.shade300,
                             border: Border.all(
                                 color: Colors.grey.shade300, width: 1)),
@@ -190,26 +192,26 @@ class _RegisterBloodDonateState extends State<RegisterBloodDonate> {
                         //disableCountry: true,
 
                         ///Country Filter [OPTIONAL PARAMETER]
-                        countryFilter: [
+                        countryFilter: const [
                           CscCountry.India,
                           CscCountry.United_States,
                           CscCountry.Canada
                         ],
 
                         ///selected item style [OPTIONAL PARAMETER]
-                        selectedItemStyle: TextStyle(
+                        selectedItemStyle: const TextStyle(
                           color: Colors.black,
                           fontSize: 14,
                         ),
 
                         ///DropdownDialog Heading style [OPTIONAL PARAMETER]
-                        dropdownHeadingStyle: TextStyle(
+                        dropdownHeadingStyle: const TextStyle(
                             color: Colors.black,
                             fontSize: 17,
                             fontWeight: FontWeight.bold),
 
                         ///DropdownDialog Item style [OPTIONAL PARAMETER]
-                        dropdownItemStyle: TextStyle(
+                        dropdownItemStyle: const TextStyle(
                           color: Colors.black,
                           fontSize: 14,
                         ),
