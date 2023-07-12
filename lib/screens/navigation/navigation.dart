@@ -18,6 +18,21 @@ class Navigation extends StatefulWidget {
 
 class _NavigationState extends State<Navigation> {
   int _selectedIndex = 0;
+  String heading() {
+    switch (_selectedIndex) {
+      case 0:
+        return 'Blood Donar Avaliable';
+
+      case 1:
+        return 'Food Reciever Available';
+
+      case 2:
+        return 'Register User';
+      default:
+    }
+    return '';
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,6 +40,14 @@ class _NavigationState extends State<Navigation> {
         iconTheme: IconThemeData(color: Colors.white),
         backgroundColor: Colors.blue,
         automaticallyImplyLeading: false,
+        title: Text(
+          heading(),
+          style: TextStyle(
+            fontSize: 15,
+            fontWeight: FontWeight.w600,
+            color: Colors.white,
+          ),
+        ),
       ),
       body: _pages.elementAt(_selectedIndex),
       endDrawer: Drawer(

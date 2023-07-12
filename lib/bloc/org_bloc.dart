@@ -16,7 +16,7 @@ class OrgBloc extends Bloc<OrgAdd, OrgState> {
       emit(OrgLading());
       print(userCollection);
       var listData = userCollection.get();
-      print("userLi9ist===${event.user}");
+      print("userLi9ist1===${event.user}");
 
       await fetchDataFromFirestore().then(
         (QuerySnapshot<Map<String, dynamic>> snapshot) {
