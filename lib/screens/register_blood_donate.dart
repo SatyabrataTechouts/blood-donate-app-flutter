@@ -1,3 +1,4 @@
+import 'package:csc_picker/csc_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:help_app/RegistredBloc/registered_bloc.dart';
@@ -30,8 +31,12 @@ var mobile = TextEditingController();
 class _RegisterBloodDonateState extends State<RegisterBloodDonate> {
   String dropdownValue = list.first;
   bool isError = true;
+  String countryValue = "";
+  String stateValue = "";
+  String cityValue = "";
   @override
   Widget build(BuildContext context) {
+    GlobalKey<CSCPickerState> _cscPickerKey = GlobalKey();
     var _valid;
     return Scaffold(
       appBar: AppBar(),
@@ -141,41 +146,103 @@ class _RegisterBloodDonateState extends State<RegisterBloodDonate> {
                     ),
                     Container(
                       width: 300,
-                      alignment: Alignment.center,
-                      child: Input(
-                        key: _valid,
-                        controller: district,
-                        validator: (value) {
-                          final bool dist = RegExp('^[A-Za-z\s]+\$').hasMatch(
-                            value.toString(),
-                          );
-                          if (!dist) {
-                            return "Enter valid district name";
-                          } else if (value == '') {
-                            return "Please Enter you district";
-                          }
-                          return null;
-                        },
-                        placeholder: "Enter your District",
+                      margin: const EdgeInsets.only(
+                        bottom: 12,
                       ),
-                    ),
-                    Container(
-                      width: 300,
-                      alignment: Alignment.center,
-                      child: Input(
-                        controller: state,
-                        validator: (value) {
-                          final validState =
-                              RegExp("^[A-Za-z\s]+(?:\s[A-Za-z\s]+)?\$")
-                                  .hasMatch(value.toString());
-                          if (!validState) {
-                            return "Enter valid State";
-                          } else if (value == '') {
-                            return "Cant be Empty";
-                          }
-                          return null;
+                      child: CSCPicker(
+                        ///Enable disable state dropdown [OPTIONAL PARAMETER]
+                        showStates: true,
+
+                        /// Enable disable city drop down [OPTIONAL PARAMETER]
+                        showCities: true,
+
+                        ///Enable (get flag with country name) / Disable (Disable flag) / ShowInDropdownOnly (display flag in dropdown only) [OPTIONAL PARAMETER]
+                        flagState: CountryFlag.DISABLE,
+
+                        ///Dropdown box decoration to style your dropdown selector [OPTIONAL PARAMETER] (USE with disabledDropdownDecoration)
+                        dropdownDecoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                            color: Colors.white,
+                            border: Border.all(
+                                color: Colors.grey.shade300, width: 1)),
+
+                        ///Disabled Dropdown box decoration to style your dropdown selector [OPTIONAL PARAMETER]  (USE with disabled dropdownDecoration)
+                        disabledDropdownDecoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                            color: Colors.grey.shade300,
+                            border: Border.all(
+                                color: Colors.grey.shade300, width: 1)),
+
+                        ///placeholders for dropdown search field
+                        countrySearchPlaceholder: "Country",
+                        stateSearchPlaceholder: "State",
+                        citySearchPlaceholder: "City",
+
+                        ///labels for dropdown
+                        countryDropdownLabel: "*Country",
+                        stateDropdownLabel: "*State",
+                        cityDropdownLabel: "*City",
+
+                        ///Default Country
+                        //defaultCountry: CscCountry.India,
+
+                        ///Disable country dropdown (Note: use it with default country)
+                        //disableCountry: true,
+
+                        ///Country Filter [OPTIONAL PARAMETER]
+                        countryFilter: [
+                          CscCountry.India,
+                          CscCountry.United_States,
+                          CscCountry.Canada
+                        ],
+
+                        ///selected item style [OPTIONAL PARAMETER]
+                        selectedItemStyle: TextStyle(
+                          color: Colors.black,
+                          fontSize: 14,
+                        ),
+
+                        ///DropdownDialog Heading style [OPTIONAL PARAMETER]
+                        dropdownHeadingStyle: TextStyle(
+                            color: Colors.black,
+                            fontSize: 17,
+                            fontWeight: FontWeight.bold),
+
+                        ///DropdownDialog Item style [OPTIONAL PARAMETER]
+                        dropdownItemStyle: TextStyle(
+                          color: Colors.black,
+                          fontSize: 14,
+                        ),
+
+                        ///Dialog box radius [OPTIONAL PARAMETER]
+                        dropdownDialogRadius: 10.0,
+
+                        ///Search bar radius [OPTIONAL PARAMETER]
+                        searchBarRadius: 10.0,
+
+                        ///triggers once country selected in dropdown
+                        onCountryChanged: (value) {
+                          setState(() {
+                            ///store value in country variable
+                            countryValue = value;
+                          });
                         },
-                        placeholder: "Enter your State",
+
+                        ///triggers once state selected in dropdown
+                        onStateChanged: (value) {
+                          setState(() {
+                            ///store value in state variable
+                            stateValue = value.toString();
+                          });
+                        },
+
+                        ///triggers once city selected in dropdown
+                        onCityChanged: (value) {
+                          setState(() {
+                            ///store value in city variable
+                            cityValue = value.toString();
+                          });
+                        },
                       ),
                     ),
                     Container(
@@ -204,11 +271,15 @@ class _RegisterBloodDonateState extends State<RegisterBloodDonate> {
                       radius: 12,
                       textColor: Colors.white,
                       onTap: () {
-                        if (validateForm()) {
+                        print("city${cityValue.length},${validateForm()}");
+                        if (validateForm() &&
+                            cityValue.isNotEmpty &&
+                            stateValue.length > 0 &&
+                            countryValue.length > 0) {
                           RegistredUser user = RegistredUser(
                             name: name.text,
                             bloodGroup: dropdownValue,
-                            state: state.text,
+                            state: stateValue,
                             pinCode: pin.text,
                             mobileNumber: mobile.text,
                           );
@@ -244,13 +315,12 @@ class _RegisterBloodDonateState extends State<RegisterBloodDonate> {
 bool validateForm() {
   // Perform validation for each form field
   final bool nameValid = RegExp(r"[A-Za-z]").hasMatch(name.text);
-  final bool mobileValid = RegExp(r'^[6-9]\d{9}$').hasMatch(mobile.text);
-  final bool districtValid = RegExp(r'^[A-Za-z\s]+$').hasMatch(district.text);
-  final bool stateValid =
-      RegExp(r'^[A-Za-z\s]+(?:\s[A-Za-z\s]+)?$').hasMatch(state.text);
+  final bool mobileValid = RegExp(r"^[6-9]\d{9}$").hasMatch(mobile.text);
+  // final bool districtValid = cityValue.isNotEmpty;
+  // final bool stateValid = stateValue.isNotEmpty;
   final bool pinValid = pin.text.length == 6;
 
-  return nameValid && mobileValid && districtValid && stateValid && pinValid;
+  return nameValid && mobileValid && pinValid;
 }
 
 void showPopup(BuildContext context, String message) {
