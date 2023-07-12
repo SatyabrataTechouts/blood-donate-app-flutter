@@ -111,9 +111,19 @@ class FoodReceiver extends StatelessWidget {
                     pin: orgPin.text,
                   );
                   print(orgName.text);
-                  context.read<OrgBloc>().add(OrgAdd(user));
+                  context.read<OrgBloc>().add(
+                        OrgAdd(
+                          user,
+                        ),
+                      );
+                  Navigator.pop(
+                    context,
+                  );
                 } else {
-                  showPopup(context, "All field mendotary");
+                  showPopup(
+                    context,
+                    "All field mendotary",
+                  );
                 }
               },
             )
@@ -141,11 +151,15 @@ void showPopup(BuildContext context, String message) {
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
-        title: const Text('Error'),
+        title: const Text(
+          'Error',
+        ),
         content: Text(message),
         actions: [
           TextButton(
-            child: const Text('OK'),
+            child: const Text(
+              'OK',
+            ),
             onPressed: () {
               Navigator.of(context).pop();
             },
