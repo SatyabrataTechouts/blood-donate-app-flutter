@@ -40,59 +40,63 @@ class _FoodDonateState extends State<FoodDonate> {
               body: ListView.builder(
             itemCount: state.data.length,
             itemBuilder: (context, index) {
-              return Padding(
-                padding: const EdgeInsets.all(18.0),
-                child: Container(
-                  decoration: const BoxDecoration(
-                    color: Colors.orangeAccent,
-                    boxShadow: [
-                      BoxShadow(
-                        // color: Colors.blueGrey,
-                        blurRadius: 4, // soften the shadow
-                        spreadRadius: 0.32, //extend the shadow
-                        offset: Offset(
-                          2.0, // Move to right 2  horizontally
-                          2.0, // Move to bottom 2 Vertically
-                        ),
-                      )
-                    ],
-                  ),
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 12,
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+              return LayoutBuilder(
+                builder: (context, constraints) {
+                  return Padding(
+                    padding: const EdgeInsets.all(18.0),
+                    child: Container(
+                      decoration: const BoxDecoration(
+                        color: Colors.orangeAccent,
+                        boxShadow: [
+                          BoxShadow(
+                            // color: Colors.blueGrey,
+                            blurRadius: 4, // soften the shadow
+                            spreadRadius: 0.32, //extend the shadow
+                            offset: Offset(
+                              2.0, // Move to right 2  horizontally
+                              2.0, // Move to bottom 2 Vertically
+                            ),
+                          )
+                        ],
+                      ),
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 12,
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
-                              'Organisation Name:${state.data[index]['name']}',
-                              style: style,
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Organisation Name:${state.data[index]['name']}',
+                                  style: style,
+                                ),
+                                Text(
+                                  "Mobile Number:${state.data[index]['mobile']} ",
+                                  style: style,
+                                ),
+                              ],
                             ),
-                            Text(
-                              "Mobile Number:${state.data[index]['mobile']} ",
-                              style: style,
-                            ),
+                            IconButton(
+                              // ignore: deprecated_member_use
+                              onPressed: () => launch(
+                                "tel://",
+                              ),
+                              icon: const Icon(
+                                Icons.call,
+                                color: Colors.white,
+                                size: 25,
+                              ),
+                            )
                           ],
                         ),
-                        IconButton(
-                          // ignore: deprecated_member_use
-                          onPressed: () => launch(
-                            "tel://",
-                          ),
-                          icon: const Icon(
-                            Icons.call,
-                            color: Colors.white,
-                            size: 25,
-                          ),
-                        )
-                      ],
+                      ),
                     ),
-                  ),
-                ),
+                  );
+                },
               );
             },
           ));

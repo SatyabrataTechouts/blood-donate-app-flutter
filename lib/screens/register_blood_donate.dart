@@ -157,23 +157,32 @@ class _RegisterBloodDonateState extends State<RegisterBloodDonate> {
                         showCities: true,
 
                         ///Enable (get flag with country name) / Disable (Disable flag) / ShowInDropdownOnly (display flag in dropdown only) [OPTIONAL PARAMETER]
-                        flagState: CountryFlag.DISABLE,
+                        // flagState: CountryFlag.DISABLE,
 
                         ///Dropdown box decoration to style your dropdown selector [OPTIONAL PARAMETER] (USE with disabledDropdownDecoration)
                         dropdownDecoration: BoxDecoration(
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(10)),
-                            color: Colors.white,
-                            border: Border.all(
-                                color: Colors.grey.shade300, width: 1)),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(10)),
+                          color: Colors.white,
+                          border: Border.all(
+                            color: Colors.grey.shade300,
+                            width: 1,
+                          ),
+                        ),
 
                         ///Disabled Dropdown box decoration to style your dropdown selector [OPTIONAL PARAMETER]  (USE with disabled dropdownDecoration)
                         disabledDropdownDecoration: BoxDecoration(
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(10)),
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(
+                              10,
+                            ),
+                          ),
+                          color: Colors.grey.shade300,
+                          border: Border.all(
                             color: Colors.grey.shade300,
-                            border: Border.all(
-                                color: Colors.grey.shade300, width: 1)),
+                            width: 1,
+                          ),
+                        ),
 
                         ///placeholders for dropdown search field
                         countrySearchPlaceholder: "Country",
