@@ -35,7 +35,7 @@ class GetOrgBloc extends Bloc<GetOrgData, GetOrgState> {
               // mappedData.add(document.data());
               // var pin = document.data();
               //pos[0].postalCode
-              if (document.data()['pin'] == '500032') {
+              if (document.data()['pin'] == pos[0].postalCode) {
                 data.add(document.data());
               }
             }
