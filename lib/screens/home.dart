@@ -54,15 +54,24 @@ class _HomeState extends State<Home> {
                                 ),
                               ),
                             )
-                          : ListView.builder(
-                              itemBuilder: (context, index) {
-                                return CardComponent(
-                                  state.data[index]['bloodGroup'],
-                                  name: state.data[index]['name'],
-                                  mobile: state.data[index]['mobile'],
-                                );
-                              },
-                              itemCount: state.data.length,
+                          : Container(
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image: AssetImage(
+                                      "assets/images/blood_donate.jpg"),
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                              child: ListView.builder(
+                                itemBuilder: (context, index) {
+                                  return CardComponent(
+                                    state.data[index]['bloodGroup'],
+                                    name: state.data[index]['name'],
+                                    mobile: state.data[index]['mobile'],
+                                  );
+                                },
+                                itemCount: state.data.length,
+                              ),
                             ),
                     ),
                   )

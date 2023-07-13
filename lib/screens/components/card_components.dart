@@ -24,8 +24,8 @@ class CardComponent extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(18.0),
       child: Container(
-        decoration: const BoxDecoration(
-          color: Colors.red,
+        decoration: BoxDecoration(
+          color: Colors.red.withOpacity(0.6),
           boxShadow: [
             BoxShadow(
               // color: Colors.blueGrey,

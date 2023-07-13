@@ -54,21 +54,19 @@ class _NavigationState extends State<Navigation> {
   Widget build(BuildContext context) {
     _refreshConnectivity();
     return Scaffold(
-      appBar: internetCon
-          ? AppBar(
-              iconTheme: IconThemeData(color: Colors.white),
-              backgroundColor: Colors.blue,
-              automaticallyImplyLeading: false,
-              title: Text(
-                heading(),
-                style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.white,
-                ),
-              ),
-            )
-          : null,
+      appBar: AppBar(
+        iconTheme: IconThemeData(color: Colors.white),
+        backgroundColor: Colors.blue,
+        automaticallyImplyLeading: false,
+        title: Text(
+          heading(),
+          style: TextStyle(
+            fontSize: 15,
+            fontWeight: FontWeight.w600,
+            color: Colors.white,
+          ),
+        ),
+      ),
       body: internetCon ? _pages.elementAt(_selectedIndex) : NoInternet(),
       endDrawer: Drawer(
         child: LayoutBuilder(builder: (context, constraints) {
@@ -208,47 +206,45 @@ class _NavigationState extends State<Navigation> {
           );
         }),
       ),
-      bottomNavigationBar: internetCon
-          ? BottomNavigationBar(
-              items: const <BottomNavigationBarItem>[
-                BottomNavigationBarItem(
-                  backgroundColor: Colors.blue,
-                  icon: Icon(
-                    Icons.bloodtype,
-                    color: Colors.white,
-                    size: 30,
-                  ),
-                  label: "",
-                ),
-                BottomNavigationBarItem(
-                  backgroundColor: Colors.blue,
-                  icon: Icon(
-                    Icons.food_bank,
-                    color: Colors.white,
-                    size: 30,
-                  ),
-                  label: '',
-                ),
-                BottomNavigationBarItem(
-                  backgroundColor: Colors.blue,
-                  icon: Icon(
-                    Icons.app_registration_rounded,
-                    color: Colors.white,
-                    size: 30,
-                  ),
-                  label: '',
-                ),
-              ],
-              type: BottomNavigationBarType.shifting,
-              currentIndex: _selectedIndex,
-              selectedIconTheme: IconThemeData(),
-              onTap: (value) {
-                setState(() {
-                  _selectedIndex = value;
-                });
-              },
-            )
-          : null,
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            backgroundColor: Colors.blue,
+            icon: Icon(
+              Icons.bloodtype,
+              color: Colors.white,
+              size: 30,
+            ),
+            label: "",
+          ),
+          BottomNavigationBarItem(
+            backgroundColor: Colors.blue,
+            icon: Icon(
+              Icons.food_bank,
+              color: Colors.white,
+              size: 30,
+            ),
+            label: '',
+          ),
+          BottomNavigationBarItem(
+            backgroundColor: Colors.blue,
+            icon: Icon(
+              Icons.app_registration_rounded,
+              color: Colors.white,
+              size: 30,
+            ),
+            label: '',
+          ),
+        ],
+        type: BottomNavigationBarType.shifting,
+        currentIndex: _selectedIndex,
+        selectedIconTheme: IconThemeData(),
+        onTap: (value) {
+          setState(() {
+            _selectedIndex = value;
+          });
+        },
+      ),
     );
   }
 }
