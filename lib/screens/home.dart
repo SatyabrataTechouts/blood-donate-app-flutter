@@ -27,9 +27,22 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return BlocBuilder<GetUserBloc, GetUserState>(builder: (context, state) {
       if (state is GetUserLoading) {
-        return const Scaffold(
+        return Scaffold(
           body: Center(
-            child: CircularProgressIndicator.adaptive(),
+            child: Container(
+              height: 55,
+              width: 55,
+              decoration: const BoxDecoration(
+                color: Colors.red,
+              ),
+              child: const Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: CircularProgressIndicator.adaptive(
+                  valueColor: AlwaysStoppedAnimation<Color>(Colors.red),
+                  backgroundColor: Colors.white,
+                ),
+              ),
+            ),
           ),
         );
       } else if (state is GetUserLoaded) {
@@ -55,7 +68,7 @@ class _HomeState extends State<Home> {
                               ),
                             )
                           : Container(
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                 image: DecorationImage(
                                   image: AssetImage(
                                       "assets/images/blood_donate.jpg"),
