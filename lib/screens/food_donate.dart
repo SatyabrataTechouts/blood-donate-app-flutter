@@ -65,9 +65,9 @@ class _FoodDonateState extends State<FoodDonate> {
                     return Padding(
                       padding: const EdgeInsets.all(18.0),
                       child: Container(
-                        decoration: const BoxDecoration(
-                          color: Colors.orangeAccent,
-                          boxShadow: [
+                        decoration: BoxDecoration(
+                          color: Colors.orange.withOpacity(0.6),
+                          boxShadow: const [
                             BoxShadow(
                               // color: Colors.blueGrey,
                               blurRadius: 4, // soften the shadow
