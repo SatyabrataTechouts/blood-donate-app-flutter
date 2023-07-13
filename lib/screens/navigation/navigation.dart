@@ -221,6 +221,7 @@ class _NavigationState extends State<Navigation> {
                   label: "",
                 ),
                 BottomNavigationBarItem(
+                  backgroundColor: Colors.blue,
                   icon: Icon(
                     Icons.food_bank,
                     color: Colors.white,
@@ -229,6 +230,7 @@ class _NavigationState extends State<Navigation> {
                   label: '',
                 ),
                 BottomNavigationBarItem(
+                  backgroundColor: Colors.blue,
                   icon: Icon(
                     Icons.app_registration_rounded,
                     color: Colors.white,
