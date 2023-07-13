@@ -46,6 +46,7 @@ dependencies:
   url_launcher: ^6.1.12
   flutter_csc_picker: ^0.0.2
   csc_picker: ^0.2.7
+  connectivity: 
 dev_dependencies:
   flutter_test:
     sdk: flutter

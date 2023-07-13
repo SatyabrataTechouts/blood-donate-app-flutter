@@ -47,24 +47,26 @@ class FoodReceiver extends StatelessWidget {
         validator: (value) => nameValidator(value ?? ''),
       ),
       NewFile(
-          name: "orgPhone",
-          controller: orgPhone,
-          placeholder: "Enter Org Phone",
-          validator: (value) => phoneValidator(value ?? ''),
-          type: TextInputType.number,
-          maxLength: 10),
+        name: "orgPhone",
+        controller: orgPhone,
+        placeholder: "Enter Org Phone",
+        validator: (value) => phoneValidator(value ?? ''),
+        type: TextInputType.number,
+        maxLength: 10,
+      ),
       NewFile(
         name: "orgState",
         controller: orgState,
         placeholder: "Enter you State",
       ),
       NewFile(
-          name: "orgPin",
-          controller: orgPin,
-          placeholder: "Enter you Pincode",
-          validator: (value) => pinValidator(value ?? ''),
-          type: TextInputType.number,
-          maxLength: 6)
+        name: "orgPin",
+        controller: orgPin,
+        placeholder: "Enter you Pincode",
+        validator: (value) => pinValidator(value ?? ''),
+        type: TextInputType.number,
+        maxLength: 6,
+      )
     ];
     return item;
   }

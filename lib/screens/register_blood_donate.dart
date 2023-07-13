@@ -36,8 +36,6 @@ class _RegisterBloodDonateState extends State<RegisterBloodDonate> {
   String cityValue = "";
   @override
   Widget build(BuildContext context) {
-    GlobalKey<CSCPickerState> _cscPickerKey = GlobalKey();
-    var _valid;
     return Scaffold(
       appBar: AppBar(),
       body: SingleChildScrollView(

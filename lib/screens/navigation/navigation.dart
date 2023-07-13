@@ -1,6 +1,8 @@
+import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:help_app/screens/food_donate.dart';
 import 'package:help_app/screens/home.dart';
+import 'package:help_app/screens/no_internet.dart';
 import 'package:help_app/screens/register_as_donter.dart';
 
 List<Widget> _pages = <Widget>[
@@ -18,6 +20,8 @@ class Navigation extends StatefulWidget {
 
 class _NavigationState extends State<Navigation> {
   int _selectedIndex = 0;
+  bool internetCon = false;
+
   String heading() {
     switch (_selectedIndex) {
       case 0:
@@ -33,23 +37,39 @@ class _NavigationState extends State<Navigation> {
     return '';
   }
 
+  Future<void> _refreshConnectivity() async {
+    bool isConnected = await _checkConnectivity();
+    setState(() {
+      internetCon = isConnected;
+    });
+  }
+
+  Future<bool> _checkConnectivity() async {
+    var connectivityResult = await Connectivity().checkConnectivity();
+    return connectivityResult == ConnectivityResult.mobile ||
+        connectivityResult == ConnectivityResult.wifi;
+  }
+
   @override
   Widget build(BuildContext context) {
+    _refreshConnectivity();
     return Scaffold(
-      appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.white),
-        backgroundColor: Colors.blue,
-        automaticallyImplyLeading: false,
-        title: Text(
-          heading(),
-          style: TextStyle(
-            fontSize: 15,
-            fontWeight: FontWeight.w600,
-            color: Colors.white,
-          ),
-        ),
-      ),
-      body: _pages.elementAt(_selectedIndex),
+      appBar: internetCon
+          ? AppBar(
+              iconTheme: IconThemeData(color: Colors.white),
+              backgroundColor: Colors.blue,
+              automaticallyImplyLeading: false,
+              title: Text(
+                heading(),
+                style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.white,
+                ),
+              ),
+            )
+          : null,
+      body: internetCon ? _pages.elementAt(_selectedIndex) : NoInternet(),
       endDrawer: Drawer(
         child: LayoutBuilder(builder: (context, constraints) {
           double height = constraints.maxHeight;
@@ -188,43 +208,45 @@ class _NavigationState extends State<Navigation> {
           );
         }),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            backgroundColor: Colors.blue,
-            icon: Icon(
-              Icons.bloodtype,
-              color: Colors.white,
-              size: 30,
-            ),
-            label: "",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.food_bank,
-              color: Colors.white,
-              size: 30,
-            ),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.app_registration_rounded,
-              color: Colors.white,
-              size: 30,
-            ),
-            label: '',
-          ),
-        ],
-        type: BottomNavigationBarType.shifting,
-        currentIndex: _selectedIndex,
-        selectedIconTheme: IconThemeData(),
-        onTap: (value) {
-          setState(() {
-            _selectedIndex = value;
-          });
-        },
-      ),
+      bottomNavigationBar: internetCon
+          ? BottomNavigationBar(
+              items: const <BottomNavigationBarItem>[
+                BottomNavigationBarItem(
+                  backgroundColor: Colors.blue,
+                  icon: Icon(
+                    Icons.bloodtype,
+                    color: Colors.white,
+                    size: 30,
+                  ),
+                  label: "",
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(
+                    Icons.food_bank,
+                    color: Colors.white,
+                    size: 30,
+                  ),
+                  label: '',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(
+                    Icons.app_registration_rounded,
+                    color: Colors.white,
+                    size: 30,
+                  ),
+                  label: '',
+                ),
+              ],
+              type: BottomNavigationBarType.shifting,
+              currentIndex: _selectedIndex,
+              selectedIconTheme: IconThemeData(),
+              onTap: (value) {
+                setState(() {
+                  _selectedIndex = value;
+                });
+              },
+            )
+          : null,
     );
   }
 }
